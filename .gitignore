@@ -132,3 +132,5 @@ dmypy.json
 # Model file
 *.ckpt
 *.pt
+
+/output

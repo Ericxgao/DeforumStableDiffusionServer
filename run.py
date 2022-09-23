@@ -518,7 +518,7 @@ def main():
 
 	load_on_run_all = True #@param {type: 'boolean'}
 	half_precision = True # check
-	check_sha256 = True #@param {type:"boolean"}
+	check_sha256 = False #@param {type:"boolean"}
 
 	model_map = {
 	    "sd-v1-4-full-ema.ckpt": {'sha256': '14749efc0ae8ef0329391ad4436feb781b402f4fece4883c7ad8d10556d8a36a'},
@@ -1297,16 +1297,14 @@ def main():
 	        '-preset', 'veryfast',
 	        mp4_path
 	    ]
-	    process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-	    stdout, stderr = process.communicate()
-	    if process.returncode != 0:
-	        print(stderr)
-	        raise RuntimeError(stderr)
+	    print(' '.join(cmd))
+	    process = subprocess.call(cmd, shell=False)
+	    
 
 	    mp4 = open(mp4_path,'rb').read()
 	    data_url = "data:video/mp4;base64," + b64encode(mp4).decode()
 	    display.display( display.HTML(f'<video controls loop><source src="{data_url}" type="video/mp4"></video>') )
-
+	   
 
 if __name__ == "__main__":
     main()
